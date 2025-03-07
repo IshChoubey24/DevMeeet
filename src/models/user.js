@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
     firstName:{
         type: String,
         required: true,
+        index: true,
         minLength: 2,
         maxLength: 30,
     },
@@ -57,7 +58,7 @@ const userSchema = new mongoose.Schema({
         trim: true,
     },
     skills:{
-        type: [String],
+        type: [String], 
 
     },
 
@@ -74,6 +75,8 @@ userSchema.methods.getJWT = async function(){
     )
     return token;
 };
+
+userSchema.index({firstName:1, lastName: 1});
 
 userSchema.methods.validatePassword = async function(passwordInputByUser){
     const user = this;
